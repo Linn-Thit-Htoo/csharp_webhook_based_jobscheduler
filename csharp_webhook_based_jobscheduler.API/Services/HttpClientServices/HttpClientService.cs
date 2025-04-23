@@ -1,4 +1,5 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Models;
+using Hangfire;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -18,6 +19,7 @@ namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices
             _logger = logger;
         }
 
+        [AutomaticRetry(Attempts = 3)]
         public async Task SendAsync(
             JobSchedulerRequestDto schedulerRequestDto
         )

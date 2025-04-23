@@ -1,4 +1,5 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Configurations;
+using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
 using FluentValidation;
 using Hangfire;
 
@@ -37,6 +38,8 @@ namespace csharp_webhook_based_jobscheduler.API.Dependencies
             });
             builder.Services.AddHealthChecks();
             builder.Services.Configure<AppSetting>(builder.Configuration);
+            builder.Services.AddScoped<IHttpClientService, HttpClientService>();
+            builder.Services.AddHttpClient();
 
             return services;
         }

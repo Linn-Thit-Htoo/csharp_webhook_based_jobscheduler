@@ -1,4 +1,5 @@
-﻿using csharp_webhook_based_jobscheduler.API.Models;
+﻿using csharp_webhook_based_jobscheduler.API.Constants;
+using csharp_webhook_based_jobscheduler.API.Models;
 using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
 using csharp_webhook_based_jobscheduler.API.Utils;
 using FluentValidation;
@@ -37,7 +38,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                             Uri = new Uri(request.Uri),
                             Endpoint = request.Endpoint,
                             JsonPayload = request.JsonPayload,
-                        }), request.DelayAt!.Value - DateTime.Now);
+                        }), request.DelayAt!.Value);
                     break;
                 case Enums.EnumJobType.Recur:
                     RecurringJob.AddOrUpdate<IHttpClientService>(request.JobId, x =>
