@@ -1,10 +1,9 @@
-﻿namespace csharp_webhook_based_jobscheduler.API.Enums
+﻿namespace csharp_webhook_based_jobscheduler.API.Enums;
+
+public enum EnumJobType
 {
-    public enum EnumJobType
-    {
-        None = 0,
-        Delay = 1,
-        Recur = 2,
-        FireAndForget = 3
-    }
+    None = 0,
+    Delay = 1,
+    Recur = 2,
+    FireAndForget = 3
 }
