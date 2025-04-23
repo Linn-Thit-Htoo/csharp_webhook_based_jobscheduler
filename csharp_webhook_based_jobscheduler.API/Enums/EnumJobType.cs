@@ -5,5 +5,5 @@ public enum EnumJobType
     None = 0,
     Delay = 1,
     Recur = 2,
-    FireAndForget = 3
+    FireAndForget = 3,
 }
