@@ -1,5 +1,6 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Constants;
 using csharp_webhook_based_jobscheduler.API.Enums;
+using csharp_webhook_based_jobscheduler.API.Extensions;
 using csharp_webhook_based_jobscheduler.API.Models;
 using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
 using csharp_webhook_based_jobscheduler.API.Utils;
@@ -7,6 +8,7 @@ using FluentValidation;
 using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
@@ -26,7 +28,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
             var validationResult = await _createJobValidator.ValidateAsync(request, cancellationToken);
             if (!validationResult.IsValid)
             {
-                result = Result<CreateJobResponse>.Fail(validationResult.Errors.Select(x => x.ErrorMessage).ToString()!);
+                result = Result<CreateJobResponse>.Fail(string.Join(" ", validationResult.Errors.Select(x => x.ErrorMessage)));
                 goto result;
             }
 
@@ -66,7 +68,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 
             switch (request.JobType)
             {
-                case Enums.EnumJobType.Delay:
+                case EnumJobType.Delay:
                     BackgroundJob.Schedule<IHttpClientService>(x =>
                         x.SendAsync(new JobSchedulerRequestDto
                         {
@@ -75,7 +77,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                             JsonPayload = request.JsonPayload,
                         }), request.DelayAt!.Value);
                     break;
-                case Enums.EnumJobType.Recur:
+                case EnumJobType.Recur:
                     RecurringJob.AddOrUpdate<IHttpClientService>(request.JobId, x =>
                         x.SendAsync(new JobSchedulerRequestDto
                         {
@@ -84,7 +86,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                             JsonPayload = request.JsonPayload,
                         }), request.CronExpression, TimeZoneInfo.Utc);
                     break;
-                case Enums.EnumJobType.FireAndForget:
+                case EnumJobType.FireAndForget:
                     BackgroundJob.Enqueue<IHttpClientService>(x =>
                         x.SendAsync(new JobSchedulerRequestDto
                         {
@@ -93,9 +95,9 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                             JsonPayload = request.JsonPayload,
                         }));
                     break;
-                case Enums.EnumJobType.None:
+                case EnumJobType.None:
                 default:
-                    break;
+                    throw new ArgumentNullException(Result<object>.Fail("Invalid Job Type.").ToJson());
             }
 
             result = Result<CreateJobResponse>.Success();
