@@ -1,6 +1,6 @@
-﻿using csharp_webhook_based_jobscheduler.API.Models;
+﻿using System.Text;
+using csharp_webhook_based_jobscheduler.API.Models;
 using Hangfire;
-using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
@@ -20,9 +20,7 @@ public class HttpClientService : IHttpClientService
     }
 
     [AutomaticRetry(Attempts = 3)]
-    public async Task SendAsync(
-        JobSchedulerRequestDto schedulerRequestDto
-    )
+    public async Task SendAsync(JobSchedulerRequestDto schedulerRequestDto)
     {
         try
         {
