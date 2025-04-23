@@ -1,0 +1,6 @@
+@csharp_webhook_based_jobscheduler.API_HostAddress = http://localhost:5290
+
+GET {{csharp_webhook_based_jobscheduler.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
