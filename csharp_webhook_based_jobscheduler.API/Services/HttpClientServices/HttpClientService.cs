@@ -53,6 +53,7 @@ namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while sending HTTP request.");
+                throw;
             }
         }
     }
