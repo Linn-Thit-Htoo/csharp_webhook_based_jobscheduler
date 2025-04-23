@@ -1,4 +1,5 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Constants;
+using csharp_webhook_based_jobscheduler.API.Enums;
 using csharp_webhook_based_jobscheduler.API.Models;
 using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
 using csharp_webhook_based_jobscheduler.API.Utils;
@@ -29,6 +30,40 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                 goto result;
             }
 
+            #region Job Type and payload validation
+
+            #region Delay
+
+            if (request.JobType == EnumJobType.Delay)
+            {
+                if (request.DelayAt is null || request.DelayAt == default)
+                {
+                    result = Result<CreateJobResponse>.Fail("DelayAt is required for Delay job type.");
+                    goto result;
+                }
+            }
+            #endregion
+
+            #region Recur
+
+            if (request.JobType == EnumJobType.Recur)
+            {
+                if (string.IsNullOrEmpty(request.CronExpression))
+                {
+                    result = Result<CreateJobResponse>.Fail("Cron Expression is required for Recur job type.");
+                    goto result;
+                }
+                if (string.IsNullOrEmpty(request.JobId))
+                {
+                    result = Result<CreateJobResponse>.Fail("Job Id is required for Recur job type.");
+                    goto result;
+                }
+            }
+
+            #endregion
+
+            #endregion
+
             switch (request.JobType)
             {
                 case Enums.EnumJobType.Delay:
@@ -47,7 +82,7 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
                             Uri = new Uri(request.Uri),
                             Endpoint = request.Endpoint,
                             JsonPayload = request.JsonPayload,
-                        }), request.CronExpression!, TimeZoneInfo.Utc);
+                        }), request.CronExpression, TimeZoneInfo.Utc);
                     break;
                 case Enums.EnumJobType.FireAndForget:
                     BackgroundJob.Enqueue<IHttpClientService>(x =>

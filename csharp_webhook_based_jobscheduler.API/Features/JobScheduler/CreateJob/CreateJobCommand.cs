@@ -11,7 +11,6 @@ namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
         public string Endpoint { get; set; }
         public string? JsonPayload { get; set; }
         public DateTime? DelayAt { get; set; }
-        public DateTime? RecurAt { get; set; }
         public string? CronExpression { get; set; }
         public string? JobId { get; set; }
     }
