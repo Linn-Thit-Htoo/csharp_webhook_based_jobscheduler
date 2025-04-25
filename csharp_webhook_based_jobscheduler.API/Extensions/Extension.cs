@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿global using Newtonsoft.Json;
 
 namespace csharp_webhook_based_jobscheduler.API.Extensions;
 
