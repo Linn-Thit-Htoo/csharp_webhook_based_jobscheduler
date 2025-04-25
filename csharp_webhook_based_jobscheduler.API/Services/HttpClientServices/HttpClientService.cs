@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using csharp_webhook_based_jobscheduler.API.Models;
-using Hangfire;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
