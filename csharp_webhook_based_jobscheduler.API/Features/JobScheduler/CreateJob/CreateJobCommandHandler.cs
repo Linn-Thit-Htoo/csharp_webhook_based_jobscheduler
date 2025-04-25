@@ -1,5 +1,5 @@
-﻿using csharp_webhook_based_jobscheduler.API.Extensions;
-using csharp_webhook_based_jobscheduler.API.Models;
+﻿global using csharp_webhook_based_jobscheduler.API.Extensions;
+global using csharp_webhook_based_jobscheduler.API.Models;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
