@@ -1,6 +1,5 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Enums;
 using csharp_webhook_based_jobscheduler.API.Utils;
-using MediatR;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
