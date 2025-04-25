@@ -1,5 +1,4 @@
 using csharp_webhook_based_jobscheduler.API.Dependencies;
-using Hangfire;
 
 var builder = WebApplication.CreateBuilder(args);
 
