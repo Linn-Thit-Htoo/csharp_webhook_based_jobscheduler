@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.Core
 {
