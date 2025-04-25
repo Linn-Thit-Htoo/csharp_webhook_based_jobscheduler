@@ -9,14 +9,19 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
         _createJobValidator = createJobValidator;
     }
 
-    public async Task<Result<CreateJobResponse>> Handle(CreateJobCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CreateJobResponse>> Handle(
+        CreateJobCommand request,
+        CancellationToken cancellationToken
+    )
     {
         Result<CreateJobResponse> result;
 
         var validationResult = await _createJobValidator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
         {
-            result = Result<CreateJobResponse>.Fail(string.Join(" ", validationResult.Errors.Select(x => x.ErrorMessage)));
+            result = Result<CreateJobResponse>.Fail(
+                string.Join(" ", validationResult.Errors.Select(x => x.ErrorMessage))
+            );
             goto result;
         }
 
@@ -40,7 +45,9 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
         {
             if (string.IsNullOrEmpty(request.CronExpression))
             {
-                result = Result<CreateJobResponse>.Fail("Cron Expression is required for Recur job type.");
+                result = Result<CreateJobResponse>.Fail(
+                    "Cron Expression is required for Recur job type."
+                );
                 goto result;
             }
             if (string.IsNullOrEmpty(request.JobId))
@@ -57,31 +64,46 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
         switch (request.JobType)
         {
             case EnumJobType.Delay:
-                BackgroundJob.Schedule<IHttpClientService>(x =>
-                    x.SendAsync(new JobSchedulerRequestDto
-                    {
-                        Uri = new Uri(request.Uri),
-                        Endpoint = request.Endpoint,
-                        JsonPayload = request.JsonPayload,
-                    }), request.DelayAt!.Value);
+                BackgroundJob.Schedule<IHttpClientService>(
+                    x =>
+                        x.SendAsync(
+                            new JobSchedulerRequestDto
+                            {
+                                Uri = new Uri(request.Uri),
+                                Endpoint = request.Endpoint,
+                                JsonPayload = request.JsonPayload,
+                            }
+                        ),
+                    request.DelayAt!.Value
+                );
                 break;
             case EnumJobType.Recur:
-                RecurringJob.AddOrUpdate<IHttpClientService>(request.JobId, x =>
-                    x.SendAsync(new JobSchedulerRequestDto
-                    {
-                        Uri = new Uri(request.Uri),
-                        Endpoint = request.Endpoint,
-                        JsonPayload = request.JsonPayload,
-                    }), request.CronExpression, TimeZoneInfo.Utc);
+                RecurringJob.AddOrUpdate<IHttpClientService>(
+                    request.JobId,
+                    x =>
+                        x.SendAsync(
+                            new JobSchedulerRequestDto
+                            {
+                                Uri = new Uri(request.Uri),
+                                Endpoint = request.Endpoint,
+                                JsonPayload = request.JsonPayload,
+                            }
+                        ),
+                    request.CronExpression,
+                    TimeZoneInfo.Utc
+                );
                 break;
             case EnumJobType.FireAndForget:
                 BackgroundJob.Enqueue<IHttpClientService>(x =>
-                    x.SendAsync(new JobSchedulerRequestDto
-                    {
-                        Uri = new Uri(request.Uri),
-                        Endpoint = request.Endpoint,
-                        JsonPayload = request.JsonPayload,
-                    }));
+                    x.SendAsync(
+                        new JobSchedulerRequestDto
+                        {
+                            Uri = new Uri(request.Uri),
+                            Endpoint = request.Endpoint,
+                            JsonPayload = request.JsonPayload,
+                        }
+                    )
+                );
                 break;
             case EnumJobType.None:
             default:
