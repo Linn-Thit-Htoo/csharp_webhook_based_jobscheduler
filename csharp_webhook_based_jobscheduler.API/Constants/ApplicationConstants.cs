@@ -1,6 +1,4 @@
-﻿global using TimeZoneConverter;
-
-namespace csharp_webhook_based_jobscheduler.API.Constants;
+﻿namespace csharp_webhook_based_jobscheduler.API.Constants;
 
 public class ApplicationConstants
 {
