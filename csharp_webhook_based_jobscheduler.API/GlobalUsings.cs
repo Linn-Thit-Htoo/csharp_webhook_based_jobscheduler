@@ -8,3 +8,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using csharp_webhook_based_jobscheduler.API.Features.Core;
 global using csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob;
 global using MediatR;
+global using csharp_webhook_based_jobscheduler.API.Enums;
+global using csharp_webhook_based_jobscheduler.API.Utils;
