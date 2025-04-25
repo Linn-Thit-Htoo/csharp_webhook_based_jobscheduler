@@ -10,3 +10,5 @@ global using csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJ
 global using MediatR;
 global using csharp_webhook_based_jobscheduler.API.Enums;
 global using csharp_webhook_based_jobscheduler.API.Utils;
+global using csharp_webhook_based_jobscheduler.API.Extensions;
+global using csharp_webhook_based_jobscheduler.API.Models;
