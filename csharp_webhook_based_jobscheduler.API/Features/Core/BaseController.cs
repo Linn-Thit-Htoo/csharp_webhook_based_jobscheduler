@@ -1,6 +1,4 @@
-﻿global using Microsoft.AspNetCore.Mvc;
-
-namespace csharp_webhook_based_jobscheduler.API.Features.Core
+﻿namespace csharp_webhook_based_jobscheduler.API.Features.Core
 {
     [Route("api/[controller]")]
     [ApiController]
