@@ -1,9 +1,4 @@
-﻿global using csharp_webhook_based_jobscheduler.API.Configurations;
-global using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
-global using FluentValidation;
-global using Hangfire;
-
-namespace csharp_webhook_based_jobscheduler.API.Dependencies;
+﻿namespace csharp_webhook_based_jobscheduler.API.Dependencies;
 
 public static class DependencyInjectionExtensions
 {
