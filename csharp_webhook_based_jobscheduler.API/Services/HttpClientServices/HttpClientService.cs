@@ -1,7 +1,4 @@
-﻿global using System.Text;
-global using static System.Net.Mime.MediaTypeNames;
-
-namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
+﻿namespace csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
 
 public class HttpClientService : IHttpClientService
 {
