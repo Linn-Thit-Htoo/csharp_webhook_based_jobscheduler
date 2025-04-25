@@ -1,14 +1,5 @@
-﻿using csharp_webhook_based_jobscheduler.API.Constants;
-using csharp_webhook_based_jobscheduler.API.Enums;
-using csharp_webhook_based_jobscheduler.API.Extensions;
+﻿using csharp_webhook_based_jobscheduler.API.Extensions;
 using csharp_webhook_based_jobscheduler.API.Models;
-using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
-using csharp_webhook_based_jobscheduler.API.Utils;
-using FluentValidation;
-using Hangfire;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Newtonsoft.Json;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
