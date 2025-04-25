@@ -5,3 +5,6 @@ global using FluentValidation;
 global using Hangfire;
 global using Newtonsoft.Json;
 global using Microsoft.AspNetCore.Mvc;
+global using csharp_webhook_based_jobscheduler.API.Features.Core;
+global using csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob;
+global using MediatR;

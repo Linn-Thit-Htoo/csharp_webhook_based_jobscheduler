@@ -1,8 +1,4 @@
-﻿global using csharp_webhook_based_jobscheduler.API.Features.Core;
-global using csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob;
-global using MediatR;
-
-namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.Core
+﻿namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.Core
 {
     [Route("api/[controller]")]
     [ApiController]
