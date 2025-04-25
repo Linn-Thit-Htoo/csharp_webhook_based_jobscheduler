@@ -1,7 +1,6 @@
 ﻿using csharp_webhook_based_jobscheduler.API.Features.Core;
 using csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.Core
 {
