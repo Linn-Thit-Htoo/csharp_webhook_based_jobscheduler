@@ -1,7 +1,7 @@
-﻿using csharp_webhook_based_jobscheduler.API.Configurations;
-using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
-using FluentValidation;
-using Hangfire;
+﻿global using csharp_webhook_based_jobscheduler.API.Configurations;
+global using csharp_webhook_based_jobscheduler.API.Services.HttpClientServices;
+global using FluentValidation;
+global using Hangfire;
 
 namespace csharp_webhook_based_jobscheduler.API.Dependencies;
 
