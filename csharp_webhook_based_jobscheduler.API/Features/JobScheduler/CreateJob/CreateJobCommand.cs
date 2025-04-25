@@ -1,5 +1,5 @@
-﻿using csharp_webhook_based_jobscheduler.API.Enums;
-using csharp_webhook_based_jobscheduler.API.Utils;
+﻿global using csharp_webhook_based_jobscheduler.API.Enums;
+global using csharp_webhook_based_jobscheduler.API.Utils;
 
 namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
