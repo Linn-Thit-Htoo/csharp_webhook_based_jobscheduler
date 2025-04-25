@@ -1,4 +1,4 @@
-﻿using System.Net;
+﻿global using System.Net;
 
 namespace csharp_webhook_based_jobscheduler.API.Utils;
 
