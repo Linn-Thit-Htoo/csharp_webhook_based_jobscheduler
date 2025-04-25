@@ -1,7 +1,4 @@
-﻿using csharp_webhook_based_jobscheduler.API.Enums;
-using FluentValidation;
-
-namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
+﻿namespace csharp_webhook_based_jobscheduler.API.Features.JobScheduler.CreateJob
 {
     public class CreateJobValidator : AbstractValidator<CreateJobCommand>
     {
