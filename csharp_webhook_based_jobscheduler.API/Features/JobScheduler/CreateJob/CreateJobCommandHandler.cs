@@ -72,6 +72,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                                 Uri = new Uri(request.Uri),
                                 Endpoint = request.Endpoint,
                                 JsonPayload = request.JsonPayload,
+                                Cs = cancellationToken
                             }
                         ),
                     request.DelayAt!.Value
@@ -87,6 +88,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                                 Uri = new Uri(request.Uri),
                                 Endpoint = request.Endpoint,
                                 JsonPayload = request.JsonPayload,
+                                Cs = cancellationToken
                             }
                         ),
                     request.CronExpression,
@@ -101,6 +103,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                             Uri = new Uri(request.Uri),
                             Endpoint = request.Endpoint,
                             JsonPayload = request.JsonPayload,
+                            Cs = cancellationToken
                         }
                     )
                 );
