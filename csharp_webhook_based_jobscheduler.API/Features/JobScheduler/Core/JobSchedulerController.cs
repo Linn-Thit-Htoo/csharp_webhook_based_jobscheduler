@@ -17,4 +17,18 @@ public class JobSchedulerController : BaseController
         var result = await _sender.Send(command, cs);
         return Content(result);
     }
+
+    [HttpDelete("CancelDelayJob")]
+    public IActionResult CancelJob(string jobId)
+    {
+        BackgroundJob.Delete(jobId);
+        return Content(Result<object>.Success());
+    }
+
+    [HttpDelete("CancelRecurJob")]
+    public IActionResult CancelRecurJob(string jobId)
+    {
+        RecurringJob.RemoveIfExists(jobId);
+        return Content(Result<object>.Success());
+    }
 }

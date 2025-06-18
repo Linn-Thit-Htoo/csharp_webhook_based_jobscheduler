@@ -15,6 +15,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
     )
     {
         Result<CreateJobResponse> result;
+        string jobId = string.Empty;
 
         var validationResult = await _createJobValidator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
@@ -50,11 +51,8 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                 );
                 goto result;
             }
-            if (string.IsNullOrEmpty(request.JobId))
-            {
-                result = Result<CreateJobResponse>.Fail("Job Id is required for Recur job type.");
-                goto result;
-            }
+
+            jobId = Guid.NewGuid().ToString();
         }
 
         #endregion
@@ -64,7 +62,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
         switch (request.JobType)
         {
             case EnumJobType.Delay:
-                BackgroundJob.Schedule<IHttpClientService>(
+                jobId = BackgroundJob.Schedule<IHttpClientService>(
                     x =>
                         x.SendAsync(
                             new JobSchedulerRequestDto
@@ -80,7 +78,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                 break;
             case EnumJobType.Recur:
                 RecurringJob.AddOrUpdate<IHttpClientService>(
-                    request.JobId,
+                    jobId,
                     x =>
                         x.SendAsync(
                             new JobSchedulerRequestDto
@@ -96,7 +94,7 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                 );
                 break;
             case EnumJobType.FireAndForget:
-                BackgroundJob.Enqueue<IHttpClientService>(x =>
+                jobId = BackgroundJob.Enqueue<IHttpClientService>(x =>
                     x.SendAsync(
                         new JobSchedulerRequestDto
                         {
@@ -113,7 +111,10 @@ public class CreateJobCommandHandler : IRequestHandler<CreateJobCommand, Result<
                 throw new ArgumentNullException(Result<object>.Fail("Invalid Job Type.").ToJson());
         }
 
-        result = Result<CreateJobResponse>.Success();
+        result = Result<CreateJobResponse>.Success(new CreateJobResponse()
+        {
+            JobId = jobId
+        });
 
     result:
         return result;

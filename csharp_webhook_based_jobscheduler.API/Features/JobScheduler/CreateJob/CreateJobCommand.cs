@@ -8,5 +8,4 @@ public class CreateJobCommand : IRequest<Result<CreateJobResponse>>
     public string? JsonPayload { get; set; }
     public DateTime? DelayAt { get; set; }
     public string? CronExpression { get; set; }
-    public string? JobId { get; set; }
 }
